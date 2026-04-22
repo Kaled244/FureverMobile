@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">FurEver</string>
+    <string name="register">Register</string>
+
+    <string name="name">Name</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="address">Address</string>
+
+    <string name="paw_icon_desc">Paw Icon</string>
+    <string name="already_account">Already have an account?</string>
+    <string name="signup">Sign Up</string>
+    <string name="signin">Login</string>
+</resources>
