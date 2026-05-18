@@ -1,4 +1,4 @@
-package com.example.furever.home
+package com.example.furever.pets
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,8 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.furever.R
-import com.example.furever.pets.Pet
 import com.google.android.material.button.MaterialButton
+import java.util.Locale
 
 class PetAdapter(
     private var pets: List<Pet>,
@@ -35,27 +35,44 @@ class PetAdapter(
 
     override fun onBindViewHolder(holder: PetViewHolder, position: Int) {
         val pet = pets[position]
-        
-        holder.tvName.text = pet.pName
-        holder.tvPrice.text = "$${pet.pPrice}"
-        holder.tvBreed.text = "Breed : ${pet.pBreed}"
-        holder.tvAgeGender.text = "Age : ${pet.pAge} yrs | Sex : ${pet.pGender}"
-        holder.tvSpecies.text = pet.pSpecies
-        holder.tvStatus.text = pet.pStatus
 
-        val baseUrl = "https://furever-backend-bn81.onrender.com"
+        // Mapped to your updated Pet model (pName, pPrice, etc.)
+        holder.tvName.text = pet.pName ?: "Unnamed Pet"
+        holder.tvPrice.text = if (!pet.pPrice.isNullOrBlank()) "₱${pet.pPrice}" else "Free"
+        holder.tvBreed.text = "Breed: ${pet.pBreed ?: "Unknown"}"
+        holder.tvAgeGender.text = "Age: ${pet.pAge ?: 0} yrs | Sex: ${pet.pGender ?: "N/A"}"
+        holder.tvSpecies.text = pet.pSpecies ?: "Pet"
+
+        // Standardize status display (e.g., "AVAILABLE" -> "Available")
+        val displayStatus = pet.pStatus?.lowercase(Locale.ROOT)
+            ?.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() }
+            ?: "Available"
+        holder.tvStatus.text = displayStatus
+
+        // Logic for Image URL handling
         val imageUrl = when {
-            pet.pImage.isNullOrEmpty() -> "https://placehold.co/400x300?text=Pet+Photo"
+            pet.pImage.isNullOrEmpty() -> "https://placehold.co/400x300?text=No+Photo"
             pet.pImage.startsWith("http") -> pet.pImage
-            pet.pImage.startsWith("/api/") -> "$baseUrl${pet.pImage}"
-            else -> "$baseUrl/uploads/${pet.pImage}"
+            else -> "https://furever-backend-bn81.onrender.com/uploads/${pet.pImage}"
         }
 
         Glide.with(holder.itemView.context)
             .load(imageUrl)
-            .placeholder(android.R.drawable.ic_menu_gallery)
-            .error(android.R.drawable.stat_notify_error)
+            .placeholder(R.drawable.bg_filter_inactive) // Use a local placeholder
+            .error(android.R.drawable.ic_menu_report_image)
+            .centerCrop()
             .into(holder.ivPetImage)
+
+        // Disable Adopt button if already adopted
+        if (pet.pStatus?.lowercase() == "adopted") {
+            holder.btnAdopt.isEnabled = false
+            holder.btnAdopt.text = "Adopted"
+            holder.btnAdopt.alpha = 0.5f
+        } else {
+            holder.btnAdopt.isEnabled = true
+            holder.btnAdopt.text = "Adopt"
+            holder.btnAdopt.alpha = 1.0f
+        }
 
         holder.btnAdopt.setOnClickListener { onAdoptClick(pet) }
         holder.itemView.setOnClickListener { onDetailsClick(pet) }

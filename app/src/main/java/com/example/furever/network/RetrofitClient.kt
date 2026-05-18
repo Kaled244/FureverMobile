@@ -1,5 +1,6 @@
 package com.example.furever.network
 
+import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -15,15 +16,21 @@ object RetrofitClient {
 
     private val client = OkHttpClient.Builder()
         .addInterceptor(logging)
-        .connectTimeout(30, TimeUnit.SECONDS)
-        .readTimeout(30, TimeUnit.SECONDS)
+        .connectTimeout(90, TimeUnit.SECONDS)
+        .readTimeout(90, TimeUnit.SECONDS)
+        .writeTimeout(90, TimeUnit.SECONDS)
         .build()
+
+    // Removing setDateFormat to prevent crashes with different LocalDateTime strings
+    private val gson = GsonBuilder()
+        .setLenient()
+        .create()
 
     val apiService: ApiService by lazy {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(client)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(ApiService::class.java)
     }

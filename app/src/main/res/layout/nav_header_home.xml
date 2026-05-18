@@ -25,14 +25,14 @@
         android:text="Guest User"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="#FFFFFF"
-        android:textStyle="bold"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/tv_user_email"
+        android:id="@+id/tv_user_role"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="user@furever.com"
+        android:text="ADOPTER"
         android:textColor="#F9F8F6"
         android:textSize="14sp" />
 

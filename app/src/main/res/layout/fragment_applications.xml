@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F9F8F6"
+    android:orientation="vertical"
+    android:paddingHorizontal="16dp">
+
+    <!-- Filters -->
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="8dp">
+
+            <TextView
+                android:id="@+id/filter_app_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_filter_active"
+                android:elevation="2dp"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp"
+                android:text="ALL"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/filter_app_pending"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/bg_filter_inactive"
+                android:elevation="2dp"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp"
+                android:text="PENDING"
+                android:textColor="#3A2525" />
+
+            <TextView
+                android:id="@+id/filter_app_approved"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/bg_filter_inactive"
+                android:elevation="2dp"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp"
+                android:text="APPROVED"
+                android:textColor="#3A2525" />
+
+            <TextView
+                android:id="@+id/filter_app_rejected"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/bg_filter_inactive"
+                android:elevation="2dp"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp"
+                android:text="REJECTED"
+                android:textColor="#3A2525" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_applications"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp"
+        android:clipToPadding="false"
+        android:paddingBottom="80dp" />
+
+</LinearLayout>

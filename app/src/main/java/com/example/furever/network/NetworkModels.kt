@@ -7,7 +7,6 @@ data class ApiResponse<T>(
     val message: String?,
     val status: Int?
 ) {
-    // Convenience property since your backend uses status 200 for success
     val success: Boolean get() = status == 200
 }
 
@@ -20,7 +19,7 @@ data class LoginResponse(
     val token: String,
     val role: String,
     val username: String,
-    @SerializedName("avatar_url")
+    @SerializedName("avatar_url", alternate = ["avatarUrl"])
     val avatarUrl: String? = null
 )
 

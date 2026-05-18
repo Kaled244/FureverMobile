@@ -1,19 +1,16 @@
 package com.example.furever.user
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
+import com.google.gson.annotations.SerializedName
 
-@Serializable
 data class User(
-    @SerialName("user_id")
+    @SerializedName("user_id", alternate = ["userId", "id"])
     val userId: Int? = null,
-    val name: String?,
-    val username: String?,
+    val name: String? = null,
+    val username: String? = null,
     val email: String,
-    val address: String?
+    val address: String? = null
 )
 
-@Serializable
 data class RegisterRequest(
     val name: String?,
     val username: String?,
